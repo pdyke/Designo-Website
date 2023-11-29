@@ -72,17 +72,16 @@ resource "aws_instance" "demo_instance" {
         Name = "demo_instance"
     }
 
-    # connection {
-    #     host = self.public_ip
-    #     type = "ssh"
-    #     user = "ubuntu"
-    #     private_key = "${file("sam_key")}"
+    connection {
+        host = self.public_ip
+        type = "ssh"
+        user = "ubuntu"
+        private_key = "${file("sam_key")}"
 
-    # }
+    }
 
-    # provisioner "file" {
-    #     source = "inventory2.txt"
-    #     destination = "/home/ubuntu/inventory2.txt"
-    #     when = create
-    # }
+    provisioner "remote-exec" {
+        script = "/home/sam/Documents/practicum/designo-website/ass.sh"
+        when = create
+    }
 }
